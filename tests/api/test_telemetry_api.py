@@ -6,7 +6,7 @@ import os
 import pytest
 import requests
 
-BASE_URL = os.getenv("API_BASE_URL", "https://aryan-136.github.io/cyber-snake-arcade")
+BASE_URL = os.getenv("API_BASE_URL", "https://aryan-136.github.io/cyber-snake-arcade").rstrip("/") + "/"
 SLA_MAX_MS = int(os.getenv("SLA_MAX_LATENCY_MS", "2500"))
 
 
@@ -22,8 +22,8 @@ class TestTelemetryAPI:
     @pytest.mark.smoke
     def test_security_and_content_headers(self):
         """Verify response contains standard content headers."""
-        response = requests.head(BASE_URL, timeout=10)
-        assert response.status_code == 200
+        response = requests.head(BASE_URL, timeout=10, allow_redirects=True)
+        assert response.status_code == 200, f"Expected 200, got {response.status_code}"
         content_type = response.headers.get("Content-Type", "")
         assert "text/html" in content_type.lower(), f"Unexpected Content-Type: {content_type}"
 
@@ -39,7 +39,7 @@ class TestTelemetryAPI:
         """Verify endpoint latency adheres to SLA threshold."""
         # Warm-up request to establish TLS/TCP connection
         session = requests.Session()
-        session.head(BASE_URL, timeout=10)
+        session.head(BASE_URL, timeout=10, allow_redirects=True)
 
         response = session.get(BASE_URL, timeout=10)
         elapsed_ms = response.elapsed.total_seconds() * 1000
