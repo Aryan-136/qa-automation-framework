@@ -60,6 +60,6 @@ def pytest_runtest_makereport(item, call):
             driver_instance.save_screenshot(str(screenshot_path))
             pytest_html = item.config.pluginmanager.getplugin("html")
             if pytest_html:
-                extra = getattr(report, "extra", [])
-                extra.append(pytest_html.extras.image(str(screenshot_path)))
-                report.extra = extra
+                extras = getattr(report, "extras", [])
+                extras.append(pytest_html.extras.image(str(screenshot_path)))
+                report.extras = extras

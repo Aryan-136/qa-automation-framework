@@ -2,6 +2,7 @@
 LoginPage - Page Object Model representing the Authentication Portal.
 """
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 
@@ -36,4 +37,5 @@ class LoginPage(BasePage):
 
     def logout(self):
         self.click(self.LOGOUT_BUTTON)
+        self.wait.until(EC.invisibility_of_element_located(self.LOGOUT_BUTTON))
         return self
