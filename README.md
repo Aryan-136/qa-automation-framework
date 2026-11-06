@@ -3,7 +3,7 @@
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Selenium WebDriver](https://img.shields.io/badge/Browser%20Automation-Selenium%204-43B02A?style=for-the-badge&logo=selenium&logoColor=white)](https://selenium.dev)
 [![PyTest](https://img.shields.io/badge/Test%20Runner-PyTest%207%2B-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)](https://pytest.org)
-[![CI/CD](https://img.shields.io/badge/Continuous%20Integration-GitHub%20Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](.github/workflows/test.yml)
+[![QA Automation Pipeline](https://github.com/Aryan-136/qa-automation-framework/actions/workflows/test.yml/badge.svg)](https://github.com/Aryan-136/qa-automation-framework/actions/workflows/test.yml)
 
 An enterprise-grade, maintainable QA test automation framework built on **Python**, **Selenium WebDriver 4**, and **PyTest**. Implements the **Page Object Model (POM)** architectural pattern, cross-browser support, automated failure screenshots, REST API contract and latency SLA validation, and automated GitHub Actions CI/CD test reporting.
 
