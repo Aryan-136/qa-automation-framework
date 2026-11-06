@@ -1,10 +1,10 @@
 """
-BasePage - Foundation Object for all Page Object Models
+BasePage - Foundation Object for all Page Object Models.
 Encapsulates explicit waits, safe interactions, and WebDriver lifecycle.
 """
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 
 class BasePage:
@@ -12,6 +12,10 @@ class BasePage:
         self.driver = driver
         self.timeout = timeout
         self.wait = WebDriverWait(driver, timeout)
+
+    def open(self, url):
+        self.driver.get(url)
+        return self
 
     def find(self, locator):
         return self.wait.until(EC.presence_of_element_located(locator))
@@ -31,11 +35,19 @@ class BasePage:
     def get_text(self, locator):
         return self.find_visible(locator).text
 
-    def is_visible(self, locator):
+    def is_visible(self, locator, timeout=None):
+        wait = self.wait if timeout is None else WebDriverWait(self.driver, timeout)
         try:
-            return bool(self.wait.until(EC.visibility_of_element_located(locator)))
+            return bool(wait.until(EC.visibility_of_element_located(locator)))
         except TimeoutException:
             return False
 
+    def wait_for_url_contains(self, text, timeout=None):
+        wait = self.wait if timeout is None else WebDriverWait(self.driver, timeout)
+        return wait.until(EC.url_contains(text))
+
     def get_current_url(self):
         return self.driver.current_url
+
+    def get_title(self):
+        return self.driver.title

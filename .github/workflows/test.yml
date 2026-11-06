@@ -9,15 +9,16 @@ on:
 
 jobs:
   test:
+    name: Run Test Suite
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
           cache: 'pip'
 
       - name: Install Dependencies
@@ -27,11 +28,12 @@ jobs:
 
       - name: Execute Tests with HTML Report
         run: |
-          pytest --html=report.html --self-contained-html
+          mkdir -p reports/screenshots
+          pytest --html=reports/report.html --self-contained-html
 
-      - name: Upload Test Report Artifact
+      - name: Upload Test Report & Screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-execution-report
-          path: report.html
+          name: qa-test-execution-report
+          path: reports/
